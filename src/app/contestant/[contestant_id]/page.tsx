@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { useRouter } from "next/navigation";
-import QueueList from "@/app/components/QueueList";
+import QueueList from "@/components/QueueList";
 
 export default function contestant() {
     const router = useRouter();
