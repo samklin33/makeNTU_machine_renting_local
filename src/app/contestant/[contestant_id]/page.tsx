@@ -1,22 +1,24 @@
 "use client"
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import QueueList from "@/components/QueueList";
 
 export default function contestant() {
     const router = useRouter();
+    const pathname = usePathname();
+    console.log();
     return (
         <>
-        <div className="h-16 m-2 flex items-center justify-center border border-2 border-black">
+        <div className="h-16 m-2 flex items-center justify-center border-2 border-black">
             <QueueList />
-            <div className="flex flex-row justify-between border border-2 border-black">
+            <div className="flex flex-row justify-between border-2 border-black">
                 <button
-                    className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="m-1 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
                     onClick={() => router.push("/")}
                 >登出</button>
                 <button 
-                    className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => router.push("/reserve")}>機台登記</button>
+                    className="m-1 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
+                    onClick={() => router.push(`${pathname}/reserve`)}>機台登記</button>
             </div>
         </div>
         </>
