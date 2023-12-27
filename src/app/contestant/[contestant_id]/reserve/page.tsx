@@ -1,8 +1,11 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import InputArea from "@/app/ui/InputArea";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function reserve() {
+    const fileRef = useRef<HTMLInputElement>(null);
+    const noteRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
     const pathname = usePathname();
     const [type, setType] = useState("");
@@ -10,7 +13,8 @@ export default function reserve() {
     const [note, setNote] = useState("");
 
     const handleSubmit = () => {
-        router.push(`/${(router as any).query.account}`);
+        console.log(title);
+        // router.push(`/${(router as any).query.account}`);
     }
 
     return (
@@ -18,10 +22,10 @@ export default function reserve() {
         <div className="m-2 flex flex-col items-center justify-between border-2 border-black">
             <div className="m-2 flex gap-2 border-2 border-black">
                 <p className="font-bold">隊伍編號：</p>
-                <input
-                    className="border-2 border-black rounded"
-                    type="text"
-                    placeholder={""}
+                <InputArea
+                    placeHolder={"HI"}
+                    editable={false}
+                    value={"TEST"}
                 />
             </div>
             <div className="m-2 flex gap-2 border-2 border-black">
@@ -36,10 +40,12 @@ export default function reserve() {
             </div>
             <div className="m-2 flex gap-2 border-2 border-black">
                 <p className="font-bold">檔案名稱：</p>
-                <input
-                    className="border-2 border-black rounded"
-                    type="text"
-                    onChange={(e) => setTitle(e.target.value)}
+                <InputArea
+                    ref={fileRef}
+                    placeHolder={"file name"}
+                    editable={true}
+                    value={title}
+                    onChange={(e) => setTitle(e)}
                 />
             </div>
             <div className="m-2 flex gap-2 border-2 border-black">
