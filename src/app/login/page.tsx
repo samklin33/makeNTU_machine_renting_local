@@ -1,9 +1,8 @@
 "use client"
-import React, { use } from "react";
+import React from "react";
 import { useState, useRef, useContext } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "../ui/InputArea";
-import { UserContext } from "@/context/user";
 
 export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -11,30 +10,49 @@ export default function Login() {
     const router = useRouter();
     const [account, setAccount] = useState("");
     const [password, setPassword] = useState("");
-    const { user } = useContext(UserContext);
+    const [permission, setPermission] = useState("");
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         console.log(account, password);
+        const username = account;
         if (account === "" || password === "") {
             alert("帳號或密碼不得為空");
             return;
         }
-        const username = account;
+        if (username.startsWith("admin")) {
+            setPermission("admin");
+        } else if (username.startsWith("team")) {
+            setPermission("contestant");
+        } else {
+            alert("帳號格式錯誤");
+            return;
+        }
         try {
-
-            router.push(`admin/${username}`);
-
             // add login logic here
-            if (user?.permission === 'contestant')  {
+            const response = await fetch('api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password, permission }),
+            });
+            if (!response.ok) {
+                alert("登入失敗");
+                console.log(response);
+                return;
+            }
+
+            if (permission === 'contestant')  {
                 router.push(`contestant/${username}`);
-            } else if (user?.permission === 'admin') {
+            } else if (permission === 'admin') {
                 router.push(`admin/${username}`);
             } else {
                 alert("找不到權限");
                 return;
             }
         } catch (error) {
-            alert("登入失敗");
+            alert("發生錯誤");
+            console.log(error);
             return;
         }
     }
