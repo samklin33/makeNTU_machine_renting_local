@@ -1,7 +1,8 @@
 "use client"
-import React from "react";
-import { useState, useRef } from "react";
+import React, { use } from "react";
+import { useState, useRef, useContext } from "react";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/user";
 
 export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -9,11 +10,32 @@ export default function Login() {
     const router = useRouter();
     const [account, setAccount] = useState("");
     const [password, setPassword] = useState("");
+    const { user } = useContext(UserContext);
 
     const handleLogin = () => {
         console.log(account, password);
+        if (account === "" || password === "") {
+            alert("帳號或密碼不得為空");
+            return;
+        }
         const username = account;
-        router.push(`contestant/${username}`);
+        try {
+
+            router.push(`contestant/${username}`);
+
+            // add login logic here
+            if (user?.permission === 'contestant')  {
+                router.push(`contestant/${username}`);
+            } else if (user?.permission === 'admin') {
+                router.push(`admin/${username}`);
+            } else {
+                alert("找不到權限");
+                return;
+            }
+        } catch (error) {
+            alert("登入失敗");
+            return;
+        }
     }
 
     return (
