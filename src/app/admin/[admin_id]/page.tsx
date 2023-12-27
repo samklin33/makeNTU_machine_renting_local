@@ -19,7 +19,10 @@ export default function admin() {
             <div className="h-full w-1/2 m-2 flex flex-col items-center justify-center rounded border-2 border-black">
                 <MachineList />
                 <div className=" g-4 w-full flex flex-row items-end justify-end border-2 border-black">
-                    <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSave}>儲存</button>
+                    <button
+                        className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleSave}
+                    >儲存</button>
                 </div>
             </div>
         </div>
