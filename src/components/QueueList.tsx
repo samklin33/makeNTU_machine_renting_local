@@ -15,6 +15,7 @@ export default function QueueList() {
                     <p>檔案名稱</p>
                     <p>列印類型</p>
                     <p>列印狀態</p>
+                    {/* By tim_2240 Maybe use a table?*/}
                 </div>
                 {/* add information queue fetching */}
                 {/* {information?.map((queue, index) => (
