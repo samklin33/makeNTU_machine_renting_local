@@ -3,13 +3,14 @@ import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/user";
 
+
 export default function HeadBar() {
     const router = useRouter();
     const { user } = useContext(UserContext);
 
     return (
         <>
-        <div className="h-16 m-2 flex items-center justify-center border-2 border-black">
+        <div className="h-16 m-2 flex items-center justify-center border-2 border-black cursor-pointer" onClick={()=>router.push("/")}>
             <h1 className="text-4xl font-bold text-blue-500">MakeNTU 機台租借網站</h1>
         </div>
         <div className="m-2 flex flex-row justify-end border-2 border-black">
