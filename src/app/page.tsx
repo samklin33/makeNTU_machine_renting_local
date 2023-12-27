@@ -5,8 +5,8 @@ import QueueList from '../components/QueueList'
 export default function Home() {
   return (
     <>
-      <Map />
-      <QueueList />
+    <Map />
+    <QueueList />
     </>
   )
 }

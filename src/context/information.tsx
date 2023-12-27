@@ -10,12 +10,12 @@ export type information = {
     status: string;
 }
 
-export type Information = {
+export type InformationContext = {
     information?: information | null;
     setInformation?: (information: information) => void;
 }
 
-export const Information = createContext<Information>({
+export const InformationContext = createContext<InformationContext>({
     information: null,
     setInformation: () => {},
 });
@@ -27,8 +27,8 @@ export const InformationProvider = ({ children }: Props) => {
     const [information, setInformation] = useState<information | null>(null);
 
     return (
-        <Information.Provider value={{ information, setInformation }}>
+        <InformationContext.Provider value={{ information, setInformation }}>
             {children}
-        </Information.Provider>
+        </InformationContext.Provider>
     )
 }

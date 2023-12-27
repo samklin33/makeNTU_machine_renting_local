@@ -22,7 +22,7 @@ export default function Login() {
         const username = account;
         try {
 
-            router.push(`contestant/${username}`);
+            router.push(`admin/${username}`);
 
             // add login logic here
             if (user?.permission === 'contestant')  {

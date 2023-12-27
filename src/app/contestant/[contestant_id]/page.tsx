@@ -2,6 +2,7 @@
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import QueueList from "@/components/QueueList";
+import Map from "@/components/Map";
 
 export default function contestant() {
     const router = useRouter();
@@ -9,8 +10,9 @@ export default function contestant() {
     console.log();
     return (
         <>
-        <div className="h-16 m-2 flex items-center justify-center border-2 border-black">
-            <QueueList />
+        <Map />
+        <QueueList />
+        <div className="h-full m-2 flex flex-col items-center justify-center border-2 border-black">
             <div className="flex flex-row justify-between border-2 border-black">
                 <button
                     className="m-1 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
