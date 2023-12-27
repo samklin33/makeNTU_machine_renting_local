@@ -4,7 +4,6 @@ import { useState, useRef, useContext } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "../ui/InputArea";
 import { UserContext } from "@/context/user";
-import { UserContext } from "@/context/user";
 
 export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
