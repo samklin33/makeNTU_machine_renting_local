@@ -15,7 +15,7 @@ const InputArea = forwardRef<HTMLInputElement, InputProps>(
       <>
         {editable?
           <input
-            className="p-1 border-2 bg-white border-gray-300 bg-slate-100d text-gray-800 rounded-lg focus:outline-0 focus:border-gray-600"
+            className="p-1 border-2 bg-white border-black bg-slate-100d text-gray-800 rounded-lg focus:outline-0 focus:border-gray-600"
             ref={ref}
             type={type}
             value={value}
