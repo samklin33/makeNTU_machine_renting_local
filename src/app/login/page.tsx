@@ -96,6 +96,10 @@ export default function Login() {
                 alert("找不到權限");
                 return;
             }
+        } catch (error) {
+            alert("發生錯誤");
+            console.log(error);
+            return;
         }
     }
 
