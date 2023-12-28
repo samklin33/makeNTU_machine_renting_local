@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "../ui/InputArea";
+import { signInApi, signUpApi } from "@/lib/api";
 
 export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -17,88 +18,67 @@ export default function Login() {
 
     const handleRegister = async () => {
         console.log(account, password, comfirmPassword);
-        if (account === "" || password === "" || comfirmPassword === "") {
-            alert("帳號或密碼不得為空");
+        if (!checkInput()) {
             return;
         }
-        if (password !== comfirmPassword) {
-            alert("密碼不一致");
-            return;
-        }
-
+        console.log(account, password, permission);
         try {
-            console.log(account, password, permission);
-            // add sign up logic here
-            const response = await fetch('api/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ account, password, permission }),
-            });
-            if (!response.ok) {
-                alert("登入失敗");
-                console.log(response);
-                return;
-            }
-
-            if (permission === 'contestant')  {
-                router.push(`contestant/${account}`);
-            } else if (permission === 'admin') {
-                router.push(`admin/${account}`);
-            } else {
-                alert("找不到權限");
-                return;
-            }
-        } catch (error) {
+            const { token: token } = await signUpApi({ account, password, permission });
+            localStorage.setItem("jwt-token: ", token);
+        } catch(error) {
             alert("發生錯誤");
             console.log(error);
             return;
         }
+        direct();
     }
 
     const handleLogin = async () => {
         console.log(account, password);
-        const username = account;
-        if (account === "" || password === "") {
-            alert("帳號或密碼不得為空");
+        if (!checkInput()) {
             return;
         }
-        if (username.startsWith("admin")) {
+        try {
+            const { token: token } = await signInApi({ account, password });
+            localStorage.setItem("jwt-token: ", token);
+        } catch(error) {
+            alert("發生錯誤");
+            console.log(error);
+            return;
+        }
+        direct();
+    }
+
+    const checkInput = () => {
+        if (!isSignUp && (account === "" || password === "")) {
+            alert("帳號或密碼不得為空");
+            return false;
+        } else if (isSignUp) {
+            if (account === "" || password === "" || comfirmPassword === "")    {
+                alert("帳號或密碼不得為空");
+                return false;    
+            } else if (password !== comfirmPassword) {
+                alert("密碼不一致");
+                return false;
+            }
+        }
+        if (account.startsWith("admin")) {
             setPermission("admin");
-        } else if (username.startsWith("team")) {
+        } else if (account.startsWith("team")) {
             setPermission("contestant");
         } else {
             alert("帳號格式錯誤");
-            return;
+            return false;
         }
-        
-        try {
-            // add login logic here
-            const response = await fetch('api/users', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-            if (!response.ok) {
-                alert("登入失敗");
-                console.log(response);
-                return;
-            }
-
-            if (permission === 'contestant')  {
-                router.push(`contestant/${username}`);
-            } else if (permission === 'admin') {
-                router.push(`admin/${username}`);
-            } else {
-                alert("找不到權限");
-                return;
-            }
-        } catch (error) {
-            alert("發生錯誤");
-            console.log(error);
+        return true;
+    }
+    const direct = () => {
+        if (permission === 'contestant')  {
+            router.push(`contestant/${account}`);
+        } else if (permission === 'admin') {
+            router.push(`admin/${account}`);
+        } else {
+            alert("找不到權限");
             return;
         }
     }

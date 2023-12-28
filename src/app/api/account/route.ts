@@ -1,4 +1,3 @@
-import React from "react";
 import { PrismaClient } from "@prisma/client";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -13,19 +12,15 @@ export async function POST(req: NextRequest) {
             data: {
                 account: account,
                 password: password,
-                permission: permission
+                permission: permission, 
             }
         });
         console.log(user);
+        return NextResponse.json({ message: "User created" }, { status: 200 });
     } catch (error) {
-        console.log(error);
-        return NextResponse.json(
-            { error },
-            { status: 500 }
-        );
+        console.log("error: ", error);
+        return NextResponse.json({ error }, { status: 500 });
     }
-
-    return NextResponse.json({ message: "User created" }, { status: 200 });
 }
 
 export function GET(req: NextRequest) {
