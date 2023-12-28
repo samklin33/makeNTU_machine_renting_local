@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import InputArea from "../ui/InputArea";
+import InputArea from "@/components/ui/InputArea";
 import { signInApi, signUpApi } from "@/lib/api";
 
 export default function Login() {
