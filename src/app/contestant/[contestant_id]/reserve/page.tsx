@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef } from "react";
-import InputArea from "@/app/ui/InputArea";
+import InputArea from "@/components/ui/InputArea";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function reserve() {
