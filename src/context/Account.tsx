@@ -7,6 +7,15 @@ export type Account = {
     password: string;
     permission: string;
 }
+export type AccountRequest = {
+    account: Account["name"];
+    password: Account["password"];
+    permission?: Account["permission"];
+}
+export type AccountResponse = {
+    account: Account["name"];
+    token: string;
+}
 
 export type AccountContext = {
     user?: Account | null;
