@@ -26,11 +26,25 @@ export default function reserve() {
     // }
 
     const handleSubmit = async () => {
-        if(!title) setFalseTitle(true) ;else setFalseTitle(false);
-        if(title.length > 15) setTooLong(true) ;else setTooLong(false);
-        if(note.length > 60) setNoteTooLong(true); else setNoteTooLong(false);
-        if(type === "") setUnselected(true) ;else setUnselected(false);
-        if(falseTitle || tooLong || NoteTooLong || unselected)return;
+        if(type === "") {
+            setUnselected(true);
+            return;
+        } else {
+            setUnselected(false);
+        } if(!title) {
+            setFalseTitle(true);
+            return;
+        } else {
+            setFalseTitle(false);
+        } if(title.length > 15) {
+            setTooLong(true);
+            return;
+        } else {
+            setTooLong(false);
+        } if(note.length > 60) {
+            setNoteTooLong(true);
+            return;
+        }
         const pathTemp = pathname.split("/");
         const teamName = pathTemp[2];
         const request = {teamName, title, type, note};
@@ -57,19 +71,20 @@ export default function reserve() {
         router.push(`/contestant/${teamName}`);
     }
 
-    return (<div className="flex justify-around">
-        <div className="m-5 p-3 flex flex-col items-center text-lg justify-between border-0 rounded-2xl bg-gray-400 md:max-w-screen-sm min-w-[550px]">
-            <div className="m-3 flex gap-2 border-0 min-w-[220px] max-w-[768px]">
+    return (
+        <div className="m-2 p-3 text-lg flex flex-col items-center justify-center justify-between border-2 border-black">
+            <div className="m-3 mb-0.5 w-2/6 flex items-center gap-2 border-2 border-black">
                 <p className="font-bold w-1/4 text-right">隊伍編號：</p>
                 <InputArea
                     editable={false}
-                    value={"TEST"}
+                    value={"test"}
                     />
             </div>
-            <div className="m-3 mb-0.5 w-4/5 flex gap-2 border-0 min-w-[220px] max-w-[768px]">
-                <p className="font-bold w-1/4 text-right">機台類型：</p>
+            <div className="flex items-end w-2/6 h-5 border-2 border-black" />
+            <div className="m-3 mb-0.5 w-2/6 flex items-center gap-2 border-2 border-black">
+                <p className="font-bold flex-end w-1/4 text-right">機台類型：</p>
                 <select 
-                    className="p-1 border-gray-300 border-2 text-gray-800 rounded-lg bg-white focus:outline-none"
+                    className="p-1 h-8 border-black border-2 text-gray-800 rounded-lg bg-white focus:outline-none"
                     value={type}
                     onChange={(e)=>setType(e.target.value)}
                     defaultValue="">
@@ -78,11 +93,10 @@ export default function reserve() {
                     <option value="LCM">雷射切割機</option>
                 </select>
             </div>
-            <div className="flex items-end w-1/2 h-5">
-                <div className="w-1/4"></div>
-                <p className="w-3/4 pl-5 text-sm text-red-500 ">{unselected?"Please select machine type.": ""}</p>
+            <div className="flex items-end w-2/6 h-5 border-2 border-black">
+                {unselected && <p className="ml-20 w-3/4  pl-5 text-sm text-red-500 ">請選擇借用機台類型</p>}
             </div>
-            <div className="m-3 mb-0.5 flex gap-2 border-0 min-w-[220px] max-w-[768px]">
+            <div className="m-3 mb-0.5 w-2/6 flex items-center gap-2 border-2 border-black">
                 <p className="font-bold w-1/4 text-right">檔案名稱：</p>
                 <InputArea
                     ref={fileRef}
@@ -92,24 +106,23 @@ export default function reserve() {
                     onChange={(e) => setTitle(e)}
                 />
             </div>
-            <div className="flex items-end w-1/2 h-5">
-                <div className="w-1/4"></div>
-                <p className="w-3/4  pl-5 text-sm text-red-500 ">{falseTitle?"Please enter file title.": ""}{tooLong?"Title must be less than 15 words.":""}</p>
+            <div className="flex items-end w-2/6 h-5 border-2 border-black">
+                {falseTitle && <p className="ml-20 w-3/4 pl-5 text-sm text-red-500">請輸入檔案名稱</p>}
+                {tooLong && <p className="ml-20 w-3/4 pl-5 text-sm text-red-500">檔案名稱不可超過15字</p>}
             </div>
-            <div className="m-2 w-4/5 flex gap-2 border-0 min-w-[220px] max-w-[768px]">
+            <div className="m-3 mb-0.5 w-2/6 flex gap-2 border-2 border-black">
                 <p className="font-bold w-1/4 text-right">備註：</p>
                 <textarea
                     ref={noteRef}
-                    className="resize-none p-1 border-2 text-gray-800 border-gray-300 rounded-lg focus:border-gray-600 focus:outline-none"
+                    className="resize-none p-1 border-2 text-gray-800 border-black rounded-lg focus:border-gray-600 focus:outline-none"
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                 />
             </div>
-            <div className="flex items-end w-1/2 h-5">
-                <div className="w-1/4"></div>
-                <p className="w-3/4  pl-5 text-sm text-red-500 ">{NoteTooLong?"Note must be less than 60 words.": ""}{tooLong?"Title must be less than 60 chars.":""}</p>
+            <div className="flex items-end w-2/6 h-5 border-2 border-black">
+                {NoteTooLong && <p className="ml-20 w-5/6 pl-5 text-sm text-red-500">備註不可超過60字</p>}
             </div>
-            <div className="m-2 flex gap-2 border-0">
+            <div className="m-2 flex gap-2 border-2 border-black">
                 <button
                     className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
                     onClick={() => router.back()}
@@ -118,7 +131,6 @@ export default function reserve() {
                     className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
                     onClick={handleSubmit}>登記</button>
             </div>
-        </div>
         </div>
     )
 }

@@ -1,25 +1,41 @@
 'use client'
 import React, { useContext } from "react";
-import QueueForAdmin from "./QueueForAdmin";
-// import { InformationContext } from "@/context/information";
+import { RequestContext } from "@/context/Request";
+import { AccountContext } from "@/context/Account";
+import RequestCardForAdmin from "./RequestCardForAdmin";
 
-export default function QueueList() {
-    // const { information } = React.useContext(InformationContext);
+export default function QueueListForAdmin() {
+    const { requests } = useContext(RequestContext);
+    const { user } = useContext(AccountContext);
+    
+    const testRequest = {
+        filename: "test1",
+        type: "3DP",
+        comment: "test1",
+        status: "waiting",
+    };
 
     return (
         <>
-            <div className="h-full w-1/2 m-2 flex flex-col items-center justify-center rounded border-2 border-black overflow-y-auto">
-                <div className="m-2 g-4 w-full flex flex-row items-center justify-between border-2 border-black">
-                    <p>檔案名稱</p>
-                    <p>列印類型</p>
-                    <p>備註</p>
-                    <p>有問題</p>
+        <div className="m-2 max-h-[50vh] w-1/2 flex flex-col items-center justify-start bg-white rounded border-2 border-black overflow-y-auto">
+            <div className="w-full sticky top-0 bg-white z-10">
+                <div className="g-4 w-full flex flex-row items-center justify-between border-2 border-black">
+                    <p className="ml-1 text-sm">檔案名稱</p>
+                    <p className="text-sm">列印類型</p>
+                    <p className="text-sm">列印備註</p>
+                    <p className="text-sm">有問題？</p>
+                {/* By tim_2240 Maybe use a table?*/}
                 </div>
-                {/* add information queue fetching */}
-                {/* {information?.map((queue, index) => (
-                    <QueueForAdmin key={index} queue={queue} />
-                ))} */}
             </div>
+            <RequestCardForAdmin information={testRequest} />
+            {/* {requests.map((request) => (
+                <RequestCard
+                    key={request.id}
+                    information={request}
+                    isSender={request.group === user?.name}
+                />
+            ))} */}
+        </div>
         </>
     )
 }

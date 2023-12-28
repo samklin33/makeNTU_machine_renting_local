@@ -62,9 +62,9 @@ export default function Login() {
             }
         }
         if (account.startsWith("admin")) {
-            await setPermission("admin");
+            setPermission("admin");
         } else if (account.startsWith("team")) {
-            await setPermission("contestant");
+            setPermission("contestant");
         } else {
             alert("帳號格式錯誤");
             return false;
@@ -107,7 +107,7 @@ export default function Login() {
                     onChange={(e) => setPassword(e)}
                 />
             </div>
-            {isSignUp && <div className="m-2 flex items-center gap-2 border-2 border-black">
+            {isSignUp && <div className="w-1/3 m-2 flex items-center gap-2 border-2 border-black">
                 <p className="font-bold">確認密碼：</p>
                 <InputArea
                     ref={comfirmPasswordRef}
