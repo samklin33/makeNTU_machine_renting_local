@@ -17,19 +17,18 @@ export default function Login() {
     const [isSignUp, setIsSignUp] = useState(false);
 
     const handleRegister = async () => {
-        console.log(account, password, comfirmPassword);
         if (!checkInput()) {
             return;
         }
         console.log(account, password, permission);
-        try {
-            const { token: token } = await signUpApi({ account, password, permission });
-            localStorage.setItem("jwt-token: ", token);
-        } catch(error) {
-            alert("發生錯誤");
-            console.log(error);
-            return;
-        }
+        // try {
+        //     const { token: token } = await signUpApi({ account, password, permission });
+        //     localStorage.setItem("jwt-token: ", token);
+        // } catch(error) {
+        //     alert("發生錯誤");
+        //     console.log(error);
+        //     return;
+        // }
         direct();
     }
 
@@ -49,7 +48,7 @@ export default function Login() {
         direct();
     }
 
-    const checkInput = () => {
+    const checkInput = async () => {
         if (!isSignUp && (account === "" || password === "")) {
             alert("帳號或密碼不得為空");
             return false;
@@ -63,13 +62,14 @@ export default function Login() {
             }
         }
         if (account.startsWith("admin")) {
-            setPermission("admin");
+            await setPermission("admin");
         } else if (account.startsWith("team")) {
-            setPermission("contestant");
+            await setPermission("contestant");
         } else {
             alert("帳號格式錯誤");
             return false;
         }
+        console.log("checkInput: ", account, password, comfirmPassword, permission)
         return true;
     }
     const direct = () => {
