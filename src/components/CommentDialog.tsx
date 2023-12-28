@@ -17,7 +17,7 @@ export default function CommentDialog({ open, comment, onClose }: CommentDialogP
                 </div>
                 <Separator />
                 <div className="m-1 mt-4 w-full flex flex-col items-top justify-center">
-                    <p className="text-lg font-bold">{comment}</p>
+                    <p className="text-lg font-bold" style={{ wordWrap: "break-word" }}>{comment}</p>
                 </div>
             </DialogContent>
         </Dialog>

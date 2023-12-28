@@ -38,13 +38,17 @@ export default function QueueList() {
                 </div>
                 <RequestCard information={testRequest} isSender={testRequest.group === testUser1.name}/>
                 <RequestCard information={testRequest} isSender={testRequest.group === testUser2.name}/>
-                {/* {requests.map((request) => (
-                    <RequestCard
-                        key={request.id}
-                        information={request}
-                        isSender={request.group === user?.name}
-                    />
-                ))} */}
+                {/* {requests.map((request) => {
+                    if (request.status !== "finished") {
+                        return (
+                            <RequestCard
+                                key={request.id}
+                                information={request}
+                                isSender={request.group === user?.name}
+                            />
+                        )}
+                    return null;
+                })} */}
             </div>
         </div>
         </>
