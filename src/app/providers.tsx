@@ -1,5 +1,5 @@
-import { UserProvider } from "@/context/user";
-import { InformationProvider } from "@/context/information";
+import { AccountProvider } from "@/context/Account";
+import { RequestProvider } from "@/context/Request";
 import React from "react";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 function Providers({ children }: Props) {
   return (
     <>
-      <UserProvider><InformationProvider>{children}</InformationProvider></UserProvider>
+      <AccountProvider><RequestProvider>{children}</RequestProvider></AccountProvider>
     </>
   );
 }

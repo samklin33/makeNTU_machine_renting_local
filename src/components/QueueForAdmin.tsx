@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { InformationContext } from "@/context/information";
+import { InformationContext } from "@/context/Request";
 
 export default function Queue() {
     const { information } = useContext(InformationContext);
