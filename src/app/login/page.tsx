@@ -17,7 +17,6 @@ export default function Login() {
 
     const handleRegister = async () => {
         console.log(account, password, comfirmPassword);
-        const username = account;
         if (account === "" || password === "" || comfirmPassword === "") {
             alert("帳號或密碼不得為空");
             return;
@@ -28,13 +27,14 @@ export default function Login() {
         }
 
         try {
+            console.log(account, password, permission);
             // add sign up logic here
             const response = await fetch('api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password, permission }),
+                body: JSON.stringify({ account, password, permission }),
             });
             if (!response.ok) {
                 alert("登入失敗");
@@ -43,9 +43,9 @@ export default function Login() {
             }
 
             if (permission === 'contestant')  {
-                router.push(`contestant/${username}`);
+                router.push(`contestant/${account}`);
             } else if (permission === 'admin') {
-                router.push(`admin/${username}`);
+                router.push(`admin/${account}`);
             } else {
                 alert("找不到權限");
                 return;

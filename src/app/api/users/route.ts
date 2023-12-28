@@ -4,8 +4,10 @@ import { type NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function POST(request: NextRequest) {
-    const { account, password, permission } = request.body;
+export async function POST(req: NextRequest) {
+    console.log("req.body", req.body);
+    const { account, password, permission } = req.body;
+    console.log(account, password, permission);
     try {
         const user = await prisma.user.create({
             data: {
@@ -18,10 +20,19 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         console.log(error);
         return NextResponse.json(
-            { error: "Something went wrong" },
-            {status: 500}
+            { error },
+            { status: 500 }
         );
     }
 
-    return NextResponse.json({ message: "User created" }, { status: 200});
+    return NextResponse.json({ message: "User created" }, { status: 200 });
+}
+
+export function GET(req: NextRequest) {
+    return NextResponse.json(
+        {
+            message: "Hello from GET /api/users"
+        },
+        { status: 200 }, 
+        );
 }
