@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { InformationContext } from "@/context/information";
-import { UserContext } from "@/context/user";
+import { InformationContext } from "@/context/Request";
+import { UserContext } from "@/context/Account";
 
 export default function Queue() {
     const { information } = useContext(InformationContext);

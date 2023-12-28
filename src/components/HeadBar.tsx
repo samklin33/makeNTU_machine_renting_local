@@ -1,12 +1,12 @@
 'use client'
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
-import { UserContext } from "@/context/user";
+import { AccountContext } from "@/context/Account";
 
 
 export default function HeadBar() {
     const router = useRouter();
-    const { user } = useContext(UserContext);
+    const { user } = useContext(AccountContext);
 
     return (
         <>
