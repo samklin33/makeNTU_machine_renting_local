@@ -33,8 +33,9 @@ export default function RequestCard({ information }: RequestCardProps) {
             >
                 <p className="text-sm">dead</p>
             </button>
-            <CommentDialog open={dialogOpen} comment={information.comment} onClose={() => setDialogOpen(false)}/>
         </div>
+            
+        <CommentDialog open={dialogOpen} comment={information.comment} onClose={() => setDialogOpen(false)}/>
         </>
     )
 }
