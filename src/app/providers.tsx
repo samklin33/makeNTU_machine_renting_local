@@ -9,7 +9,11 @@ type Props = {
 function Providers({ children }: Props) {
   return (
     <>
-      <AccountProvider><RequestProvider>{children}</RequestProvider></AccountProvider>
+    <AccountProvider>
+      <RequestProvider>
+        {children}
+      </RequestProvider>
+    </AccountProvider>
     </>
   );
 }

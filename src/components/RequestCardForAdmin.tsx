@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CommentDialog from "./CommentDialog";
+import DraggableComponent from "./ui/DragCard";
 
 export type RequestCardProps = {
     information: {
@@ -12,7 +13,7 @@ export type RequestCardProps = {
 
 export default function RequestCard({ information }: RequestCardProps) {
     const [ dialogOpen , setDialogOpen ] = useState(false);
-    
+
     const setRequestDead = () => {
     }
 

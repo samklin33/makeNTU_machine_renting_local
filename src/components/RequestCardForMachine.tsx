@@ -28,7 +28,7 @@ export default function RequestCardForMachine({ information }: RequestCardProps)
                 <p className="whitespace-no-wrap overflow-hidden overflow-ellipsis">{information?.comment}</p>
             </button>
             <button
-                className="m-0.5 bg-white text-black hover:text-white hover:bg-red-600 rounded border-black border-2"
+                className="m-0.5 bg-white text-black hover:text-white hover:bg-green-600 rounded border-black border-2"
                 onClick={() => setRequestFinished()}
             >
                 <p className="text-sm">finished</p>

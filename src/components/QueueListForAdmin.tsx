@@ -11,7 +11,7 @@ export default function QueueListForAdmin() {
     const testRequest = {
         filename: "test1",
         type: "3DP",
-        comment: "test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1",
+        comment: "test1",
         status: "waiting",
     };
 
