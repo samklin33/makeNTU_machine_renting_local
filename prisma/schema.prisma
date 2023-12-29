@@ -12,7 +12,7 @@ datasource db {
 
 model Account {
   id         Int     @id @default(autoincrement())
-  name       String
+  name       String  @unique
   password   String
   permission String
 }
@@ -24,6 +24,6 @@ model Request {
   number    Int?
   filename  String
   comment   String?
-  status    String?
+  status    String
   createAt  DateTime @default(now())
 }

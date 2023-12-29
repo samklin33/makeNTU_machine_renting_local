@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from "react";
+import React from "react";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "@/components/ui/InputArea";
@@ -16,25 +16,10 @@ export default function Login() {
     const [permission, setPermission] = useState("");
     const [isSignUp, setIsSignUp] = useState(false);
 
-    useEffect(() => {
-        if (permission !== "") {
-            console.log("Input: ",account, password, permission);
-            direct();
-        }
-    }, [permission]);
-
     const handleRegister = async () => {
         if (!checkInput()) {
             return;
         }
-        // try {
-        //     const { token: token } = await signUpApi({ account, password, permission });
-        //     localStorage.setItem("jwt-token: ", token);
-        // } catch(error) {
-        //     alert("發生錯誤");
-        //     console.log(error);
-        //     return;
-        // }
         console.log(account, password, permission);
             try {
                 const { token: token } = await signUpApi({ account, password, permission });
@@ -52,14 +37,15 @@ export default function Login() {
         if (!checkInput()) {
             return;
         }
-        // try {
-        //     const { token: token } = await signInApi({ account, password });
-        //     localStorage.setItem("jwt-token: ", token);
-        // } catch(error) {
-        //     alert("發生錯誤");
-        //     console.log(error);
-        //     return;
-        // }
+        try {
+            const { token: token } = await signInApi({ account, password });
+            localStorage.setItem("jwt-token: ", token);
+        } catch(error) {
+            alert("發生錯誤");
+            console.log(error);
+            return;
+        }
+        direct();
     }
 
     const checkInput = async () => {
