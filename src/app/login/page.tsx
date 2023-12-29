@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "@/components/ui/InputArea";
-import { signInApi, signUpApi } from "@/lib/api";
+import { isAccountUnique, SignInApi, SignUpApi } from "../api/account/route";
 
 export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -37,8 +37,8 @@ export default function Login() {
         // }
         console.log(account, password, permission);
             try {
-                const { token: token } = await signUpApi({ account, password, permission });
-                localStorage.setItem("jwt-token: ", token);
+                const result = await SignUpApi({ account, password, permission });
+                localStorage.setItem("jwt-token: ", result.token);
             } catch(error) {
                 alert("發生錯誤");
                 console.log(error);
