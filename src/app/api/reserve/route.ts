@@ -1,35 +1,36 @@
 import prisma from "../../../../prisma/client"
+//import express from "express";
 // import { PrismaClient } from "@prisma/client";
-import { type NextRequest, NextResponse } from "next/server";
-
+import { type NextApiRequest, NextApiResponse } from "next";
+//const app = express();
+//app.use(express.json());
 // const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
     console.log("req.body", req.body);
     const { username, type, title, note } = req.body;
     
     try {
-        const user = await prisma.user.create({
+        const user = await prisma.request.create({
             data: {
                 group: username,
                 type: type,
                 filename: title,
                 comment: note,
+                number: 0,
+                status:"pending",
             }
         });
         console.log(user);
-        return NextResponse.json({ message: "User created" }, { status: 200 });
+        return res.status(200).json(user);
     } catch (error) {
         console.log("error: ", error);
-        return NextResponse.json({ error }, { status: 500 });
+        return res.status(500).json(error);
     }
 }
 
-export function GET(req: NextRequest) {
-    return NextResponse.json(
-        {
-            message: "Hello from GET /api/users"
-        },
-        { status: 200 }, 
-        );
+export async function GET(req: NextApiRequest, res:NextApiResponse) {
+    const resultReq = await prisma.request.findMany();
+    return res.status(200).json(resultReq);
 }
