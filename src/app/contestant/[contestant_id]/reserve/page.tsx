@@ -2,10 +2,10 @@
 import React, { useState, useRef, useContext } from "react";
 import InputArea from "@/components/ui/InputArea";
 import { useRouter, usePathname } from "next/navigation";
-// import { UserContext } from "@/context/user";
+import { AccountContext } from "@/context/Account";
 
 export default function reserve() {
-    // const { user } = useContext(UserContext);
+    const { user } = useContext(AccountContext);
     const fileRef = useRef<HTMLInputElement>(null);
     const noteRef = useRef<HTMLTextAreaElement>(null);
     const router = useRouter();
@@ -17,13 +17,13 @@ export default function reserve() {
     const [tooLong, setTooLong] = useState(false);
     const [NoteTooLong, setNoteTooLong] = useState(false);
     const [unselected, setUnselected] = useState(false);
-    // if(user?.permission!=='admin' && user?.permission!=='contestant'){
-    //     if(!tooLong) {
-    //         alert("Please login first!");
-    //         setTooLong(true);
-    //     }
-    //     router.push('/');
-    // }
+    if(user?.permission!=='admin' && user?.permission!=='contestant'){
+        if(!tooLong) {
+            alert("Please login first!");
+            setTooLong(true);
+        }
+        router.push('/');
+    }
 
     const handleSubmit = async () => {
         if(type === "") {
@@ -47,7 +47,7 @@ export default function reserve() {
         }
         const pathTemp = pathname.split("/");
         const teamName = pathTemp[2];
-        const request = {teamName, title, type, note};
+        const request = {teamName, type, title, note};
         console.log(request);
         
         try {
