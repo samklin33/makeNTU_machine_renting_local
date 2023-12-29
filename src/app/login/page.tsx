@@ -3,14 +3,14 @@ import React from "react";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "@/components/ui/InputArea";
-import { signInApi, signUpApi } from "@/lib/api";
+import { SignInApi, SignUpApi, isAccountUnique } from "../api/account/route";
 
 export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const comfirmPasswordRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
-    const [account, setAccount] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [comfirmPassword, setComfirmPassword] = useState("");
     const [permission, setPermission] = useState("");
@@ -20,10 +20,10 @@ export default function Login() {
         if (!checkInput()) {
             return;
         }
-        console.log(account, password, permission);
+        console.log(username, password, permission);
             try {
-                const { token: token } = await signUpApi({ account, password, permission });
-                localStorage.setItem("jwt-token: ", token);
+                const registerData = await SignUpApi({ username, password, permission }, {});
+                localStorage.setItem("jwt-token: ", registerData.token);
             } catch(error) {
                 alert("發生錯誤");
                 console.log(error);
@@ -33,13 +33,13 @@ export default function Login() {
     }
 
     const handleLogin = async () => {
-        console.log(account, password);
+        console.log(username, password);
         if (!checkInput()) {
             return;
         }
         try {
-            const { token: token } = await signInApi({ account, password });
-            localStorage.setItem("jwt-token: ", token);
+            const resultData = await SignInApi({ username, password });
+            localStorage.setItem("jwt-token: ", resultData.token);
         } catch(error) {
             alert("發生錯誤");
             console.log(error);
@@ -49,11 +49,11 @@ export default function Login() {
     }
 
     const checkInput = async () => {
-        if (!isSignUp && (account === "" || password === "")) {
+        if (!isSignUp && (username === "" || password === "")) {
             alert("帳號或密碼不得為空");
             return false;
         } else if (isSignUp) {
-            if (account === "" || password === "" || comfirmPassword === "")    {
+            if (username === "" || password === "" || comfirmPassword === "")    {
                 alert("帳號或密碼不得為空");
                 return false;    
             } else if (password !== comfirmPassword) {
@@ -61,22 +61,22 @@ export default function Login() {
                 return false;
             }
         }
-        if (account.startsWith("admin")) {
+        if (username.startsWith("admin")) {
             setPermission("admin");
-        } else if (account.startsWith("team")) {
+        } else if (username.startsWith("team")) {
             setPermission("contestant");
         } else {
             alert("帳號格式錯誤");
             return false;
         }
-        console.log("checkInput: ", account, password, comfirmPassword, permission)
+        console.log("checkInput: ", username, password, comfirmPassword, permission)
         return true;
     }
     const direct = () => {
         if (permission === 'contestant')  {
-            router.push(`contestant/${account}`);
+            router.push(`contestant/${username}`);
         } else if (permission === 'admin') {
-            router.push(`admin/${account}`);
+            router.push(`admin/${username}`);
         } else {
             alert("找不到權限");
             return;
@@ -91,9 +91,9 @@ export default function Login() {
                 <InputArea
                     ref={usernameRef}
                     editable={true}
-                    value={account}
+                    value={username}
                     placeHolder={"Team account"}
-                    onChange={(e) => setAccount(e)}
+                    onChange={(e) => setUsername(e)}
                 />
             </div>
             <div className="m-2 flex items-center gap-2 border-2 border-black">
