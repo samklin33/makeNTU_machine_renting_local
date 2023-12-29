@@ -1,20 +1,21 @@
 'use client'
 import React from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import QueueListForAdmin from "@/components/QueueListForAdmin";
 import MachineList from "@/components/MachineList";
 import Map from "@/components/Map";
+import DraggableComponent from "@/components/ui/DragCard";
 
 export default function admin() {
     const router = useRouter();
 
-    const handleSave = () => {
-    }
+    // const handleSave = () => {
+    // }
 
     return (
         <>
         <Map />
-        <div className="m-2 h-[80vh] flex items-top justify-start border-2 border-black">
+        <div className="m-2 h-[90vh] flex items-top justify-start border-2 border-black">
             <QueueListForAdmin />
             <div className="h-9/10 w-1/2 m-2 flex flex-col items-center justify-top border-2 border-black">
                 <div className="w-full h-1/2 flex items-center justify-top border-2 border-black">
@@ -28,8 +29,12 @@ export default function admin() {
                 <div className=" g-4 w-full flex flex-row items-end justify-end border-2 border-black">
                     <button
                         className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => router.push("/")}
+                    >登出</button>
+                    {/* <button
+                        className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={handleSave}
-                    >儲存</button>
+                    >儲存</button> */}
                 </div>
             </div>
         </div>
