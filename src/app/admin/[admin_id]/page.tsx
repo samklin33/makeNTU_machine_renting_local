@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import QueueListForAdmin from "@/components/QueueListForAdmin";
 import MachineList from "@/components/MachineList";
 import Map from "@/components/Map";
-import DraggableComponent from "@/components/ui/DragCard";
 
 export default function admin() {
     const router = useRouter();
