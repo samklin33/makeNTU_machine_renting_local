@@ -17,6 +17,7 @@ export default function reserve() {
     const [tooLong, setTooLong] = useState(false);
     const [NoteTooLong, setNoteTooLong] = useState(false);
     const [unselected, setUnselected] = useState(false);
+    
     if(user?.permission!=='admin' && user?.permission!=='contestant'){
         if(!tooLong) {
             alert("Please login first!");
