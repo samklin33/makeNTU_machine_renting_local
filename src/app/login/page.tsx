@@ -21,14 +21,14 @@ export default function Login() {
             return;
         }
         console.log(account, password, permission);
-        // try {
-        //     const { token: token } = await signUpApi({ account, password, permission });
-        //     localStorage.setItem("jwt-token: ", token);
-        // } catch(error) {
-        //     alert("發生錯誤");
-        //     console.log(error);
-        //     return;
-        // }
+            try {
+                const { token: token } = await signUpApi({ account, password, permission });
+                localStorage.setItem("jwt-token: ", token);
+            } catch(error) {
+                alert("發生錯誤");
+                console.log(error);
+                return;
+            }
         direct();
     }
 
@@ -119,7 +119,7 @@ export default function Login() {
                 />
             </div>}
             {!isSignUp && <div className="m-2 flex items-center justify-center gap-2 border-2 border-black">
-                <a className="m-1 text-xs font-bold underline hover:text-blue-800" onClick={() => setIsSignUp(true)}>
+                <a className="m-1 text-xs font-bold underline hover:text-blue-800 hover:cursor-pointer" onClick={() => setIsSignUp(true)}>
                     <p>—第一次登入？註冊—</p>
                 </a>
             </div>}
