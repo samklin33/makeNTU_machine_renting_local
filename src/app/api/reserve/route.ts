@@ -1,7 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../prisma/client"
+// import { PrismaClient } from "@prisma/client";
 import { type NextRequest, NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
     console.log("req.body", req.body);
