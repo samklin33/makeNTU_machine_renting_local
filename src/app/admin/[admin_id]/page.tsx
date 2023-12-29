@@ -1,12 +1,9 @@
 'use client'
 import React from "react";
 import { useRouter } from "next/navigation";
-import { DndProvider } from "react-dnd";
-import HTML5backend from "react-dnd-html5-backend";
 import QueueListForAdmin from "@/components/QueueListForAdmin";
 import MachineList from "@/components/MachineList";
 import Map from "@/components/Map";
-import DragCard from "@/components/ui/DragCard";
 
 export default function admin() {
     const router = useRouter();
@@ -40,9 +37,6 @@ export default function admin() {
                 </div>
             </div>
         </div>
-        {/* <DndProvider backend={HTML5backend}>
-            <DragCard />
-        </DndProvider> */}
         </>
     )
 }

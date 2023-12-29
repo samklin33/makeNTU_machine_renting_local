@@ -22,15 +22,15 @@ export default function RequestCard({ information }: RequestCardProps) {
     return (
         <>
         <div className="g-4 w-full h-12 flex items-center justify-between bg-white border-2 border-black" draggable="true">
-            {/* <button
-                className="ml-4 w-12 h-full hover:bg-gray-200"
-                onClick={() => setStatusDialogOpen(true)}
-            > */}
-                <p className="ml-2 text-lg font-bold">{information?.filename}</p>
-            {/* </button> */}
-            <p className="ml-4 text-lg font-bold">{information?.type}</p>
             <button
-                className="ml-4 w-12 h-full hover:bg-gray-200"
+                className="ml-1 w-16 h-full hover:bg-gray-200"
+                onClick={() => setStatusDialogOpen(true)}
+            >
+                <p className="text-lg font-bold">{information?.filename}</p>
+            </button>
+            <p className="m-2 text-lg font-bold">{information?.type}</p>
+            <button
+                className="ml-2 w-16 h-full hover:bg-gray-200"
                 onClick={() => setCommentDialogOpen(true)}
             >
                 <p className="text-lg font-bold whitespace-no-wrap overflow-hidden overflow-ellipsis">{information?.comment}</p>

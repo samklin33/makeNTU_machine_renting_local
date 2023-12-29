@@ -24,7 +24,6 @@ export default function QueueListForAdmin() {
                     <p className="text-sm">列印類型</p>
                     <p className="text-sm">列印備註</p>
                     <p className="text-sm">有問題？</p>
-                {/* By tim_2240 Maybe use a table?*/}
                 </div>
             </div>
             <RequestCardForAdmin information={testRequest} />
