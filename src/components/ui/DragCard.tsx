@@ -1,48 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDrag } from "react-dnd";
+import { getEmptyImage } from "react-dnd-html5-backend";
+import { ItemTypes } from "@/app/constants";
+import Card from "./Card";
 
-const DraggableComponent = () => {
-  const [isDragging, setIsDragging] = useState(false);
+const DraggableCard = props => {
+  const [, dragRef, preview] = useDrag({
+    item: { type: ItemTypes.CARD, ...props }
+  });
 
-  const handleDragStart = () => {
-    setIsDragging(true);
-  };
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, [preview]);
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-  };
-
-const handleDragEnter = (e) => {
-    e.preventDefault();
-
-    if (e.target.id === "machine1") {
-      alert("Entered target 1");
-    }
+  return (
+    <div ref={dragRef}>
+      <Card task={props.task} />
+    </div>
+  );
 };
 
-    return (
-        <>
-        <div
-            id="target1"
-            onDragEnter={handleDragEnter}
-            onDragOver={(e) => e.preventDefault()}
-            className={`m-2 h-16 flex justify-center items-center border-2 border-black bg-${isDragging ? "lightblue" : "white"}`}
-        >
-            Target 1
-        </div>
-        <div
-            draggable
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            style={{
-                border: "1px solid #000",
-                padding: "8px",
-                cursor: "grab",
-            }}
-        >
-            Draggable Component
-        </div>
-        </>
-    );
-};
-
-export default DraggableComponent;
+export default DraggableCard;
