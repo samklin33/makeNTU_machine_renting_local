@@ -14,9 +14,7 @@ async function main() {
             status:"lol"
         },
       })
-    
     const allUsers = await prisma.request.findMany()
-
     console.log(allUsers)
 }
   
