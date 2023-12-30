@@ -32,7 +32,7 @@ type Props = {
 export const  RequestProvider = async ({ children }: Props) => {
     const [requests, setRequests] = useState<Request[]>([]);
     const requestList = await prisma.request.findMany();
-    setRequests(requestList);
+    //setRequests(requestList);
     return (
         <RequestContext.Provider value={{ requests, setRequests }}>
             {children}
