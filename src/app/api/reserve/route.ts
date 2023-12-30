@@ -26,15 +26,11 @@ export async function POST(req: NextRequest) {
     }
 }
 
-//GET
-export async function GET (req: NextRequest) {
-    const data = await req.json();
-    const resultReq = await prisma.request.findMany();
-    return NextResponse.json(
-        { resultReq },
-        { status: 200 },
-      );
-}
+// GET
+// export async function GET (req: NextRequest, res:NextResponse) {
+//     const resultReq = await prisma.request.findMany();
+//     return res.status(200).json(resultReq);
+// }
 
 //PUT
 export const UpdateStatus = async (req: NextRequest, res: NextResponse) => {

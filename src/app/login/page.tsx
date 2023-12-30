@@ -28,9 +28,11 @@ export default function Login() {
             return;
         }
         console.log(username, password, permission);
+        const account = username;
         try {
-            const registerData = await SignUpApi({ username, password, permission }, {});
-            localStorage.setItem("jwt-token: ", registerData.token);
+            const { token: token } = await SignUpApi({ account, password, permission });
+            // const res = await SignUpApi({ account, password, permission });
+            localStorage.setItem("jwt-token", token);
         } catch(error) {
             alert("發生錯誤");
             console.log(error);

@@ -10,7 +10,7 @@ export type Account = {
 export type AccountRequest = {
     account: Account["name"];
     password: Account["password"];
-    permission?: Account["permission"];
+    permission: Account["permission"];
 }
 export type AccountResponse = {
     account: Account["name"];
