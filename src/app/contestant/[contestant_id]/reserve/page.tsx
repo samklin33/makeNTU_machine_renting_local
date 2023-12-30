@@ -3,28 +3,30 @@ import React, { useState, useRef, useContext } from "react";
 import InputArea from "@/components/ui/InputArea";
 import { useRouter, usePathname } from "next/navigation";
 import { AccountContext } from "@/context/Account";
+import { RequestContext } from "@/context/Request";
 
 export default function reserve() {
     const { user } = useContext(AccountContext);
+    const { sendRequest } = useContext(RequestContext);
     const fileRef = useRef<HTMLInputElement>(null);
     const noteRef = useRef<HTMLTextAreaElement>(null);
     const router = useRouter();
     const pathname = usePathname();
     const [type, setType] = useState("");
-    const [title, setTitle] = useState("");
-    const [note, setNote] = useState("");
+    const [filename, setFilename] = useState("");
+    const [comment, setComment] = useState("");
     const [falseTitle, setFalseTitle] = useState(false);
     const [tooLong, setTooLong] = useState(false);
     const [NoteTooLong, setNoteTooLong] = useState(false);
     const [unselected, setUnselected] = useState(false);
     
-    if(user?.permission!=='admin' && user?.permission!=='contestant'){
-        if(!tooLong) {
-            alert("Please login first!");
-            setTooLong(true);
-        }
-        router.push('/');
-    }
+    // if(user?.permission!=='admin' && user?.permission!=='contestant'){
+    //     if(!tooLong) {
+    //         alert("Please login first!");
+    //         setTooLong(true);
+    //     }
+    //     router.push('/');
+    // }
 
     const handleSubmit = async () => {
         if(type === "") {
@@ -32,44 +34,33 @@ export default function reserve() {
             return;
         } else {
             setUnselected(false);
-        } if(!title) {
+        } if(!filename) {
             setFalseTitle(true);
             return;
         } else {
             setFalseTitle(false);
-        } if(title.length > 15) {
+        } if(filename.length > 15) {
             setTooLong(true);
             return;
         } else {
             setTooLong(false);
-        } if(note.length > 60) {
+        } if(comment.length > 60) {
             setNoteTooLong(true);
             return;
         }
         const pathTemp = pathname.split("/");
-        const teamName = pathTemp[2];
-        const request = {teamName, type, title, note};
+        const group = pathTemp[2];
+        const request = { group, type, filename, comment };
         console.log(request);
         
         try {
-            const response = await fetch('api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(request),
-            });
-            if (!response.ok) {
-                alert("Sorry, something rong happened. Please try again later.");
-                console.log(response);
-                return;
-            }
+            sendRequest(request);
         } catch (error) {
             alert("Sorry, something rong happened. Please try again later.");
             console.log(error);
             return;
         }
-        router.push(`/contestant/${teamName}`);
+        router.push(`/contestant/${group}`);
     }
 
     return (
@@ -103,8 +94,8 @@ export default function reserve() {
                     ref={fileRef}
                     placeHolder={"file name"}
                     editable={true}
-                    value={title}
-                    onChange={(e) => setTitle(e)}
+                    value={filename}
+                    onChange={(e) => setFilename(e)}
                 />
             </div>
             <div className="flex items-end w-2/6 h-5 border-2 border-black">
@@ -116,8 +107,8 @@ export default function reserve() {
                 <textarea
                     ref={noteRef}
                     className="resize-none p-1 border-2 text-gray-800 border-black rounded-lg focus:border-gray-600 focus:outline-none"
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                 />
             </div>
             <div className="flex items-end w-2/6 h-5 border-2 border-black">

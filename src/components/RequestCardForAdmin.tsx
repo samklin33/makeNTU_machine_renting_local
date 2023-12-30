@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CommentDialog from "./CommentDialog";
-import DraggableComponent from "./ui/DragCard";
+import StatusDialog from "./StatusDialog";
 
 export type RequestCardProps = {
     information: {
@@ -12,19 +12,26 @@ export type RequestCardProps = {
 };
 
 export default function RequestCard({ information }: RequestCardProps) {
-    const [ dialogOpen , setDialogOpen ] = useState(false);
+    const [ commentDialogOpen , setCommentDialogOpen ] = useState(false);
+    const [ statusDialogOpen, setStatusDialogOpen ] = useState(false);
 
     const setRequestDead = () => {
+
     }
 
     return (
         <>
-        <div className="g-4 w-full h-12 flex items-center justify-between bg-white border-2 border-black">
-            <p className="ml-2 text-lg font-bold">{information?.filename}</p>
-            <p className="ml-4 text-lg font-bold">{information?.type}</p>
+        <div className="g-4 w-full h-12 flex items-center justify-between bg-white border-2 border-black" draggable="true">
             <button
-                className="ml-4 w-12 h-full hover:bg-gray-200"
-                onClick={() => setDialogOpen(true)}
+                className="ml-1 w-16 h-full hover:bg-gray-200"
+                onClick={() => setStatusDialogOpen(true)}
+            >
+                <p className="text-lg font-bold">{information?.filename}</p>
+            </button>
+            <p className="m-2 text-lg font-bold">{information?.type}</p>
+            <button
+                className="ml-2 w-16 h-full hover:bg-gray-200"
+                onClick={() => setCommentDialogOpen(true)}
             >
                 <p className="text-lg font-bold whitespace-no-wrap overflow-hidden overflow-ellipsis">{information?.comment}</p>
             </button>
@@ -36,7 +43,8 @@ export default function RequestCard({ information }: RequestCardProps) {
             </button>
         </div>
             
-        <CommentDialog open={dialogOpen} comment={information.comment} onClose={() => setDialogOpen(false)}/>
+        <CommentDialog open={commentDialogOpen} comment={information.comment} onClose={() => setCommentDialogOpen(false)}/>
+        <StatusDialog open={statusDialogOpen} status={information.status} onClose={() => setStatusDialogOpen(false)}/>
         </>
     )
 }

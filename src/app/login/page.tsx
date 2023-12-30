@@ -27,14 +27,14 @@ export default function Login() {
         if (!checkInput()) {
             return;
         }
-        // try {
-        //     const { token: token } = await signUpApi({ account, password, permission });
-        //     localStorage.setItem("jwt-token: ", token);
-        // } catch(error) {
-        //     alert("發生錯誤");
-        //     console.log(error);
-        //     return;
-        // }
+        try {
+            const { token: token } = await signUpApi({ account, password, permission });
+            localStorage.setItem("jwt-token: ", token);
+        } catch(error) {
+            alert("發生錯誤");
+            console.log(error);
+            return;
+        }
     }
 
     const handleLogin = async () => {
@@ -42,14 +42,14 @@ export default function Login() {
         if (!checkInput()) {
             return;
         }
-        // try {
-        //     const { token: token } = await signInApi({ account, password });
-        //     localStorage.setItem("jwt-token: ", token);
-        // } catch(error) {
-        //     alert("發生錯誤");
-        //     console.log(error);
-        //     return;
-        // }
+        try {
+            const { token: token } = await signInApi({ account, password });
+            localStorage.setItem("jwt-token: ", token);
+        } catch(error) {
+            alert("發生錯誤");
+            console.log(error);
+            return;
+        }
     }
 
     const checkInput = async () => {
