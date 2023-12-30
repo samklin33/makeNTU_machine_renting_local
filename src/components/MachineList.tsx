@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import RequestCardForMachine from "./RequestCardForMachine"
 import { RequestContext } from "@/context/Request";
-
+import prisma from "../../prisma/client";
 export type MachineListProps = {
     index: number;
 }
 
-export default function MachineList({ index }: MachineListProps) {
+export default async function MachineList({ index }: MachineListProps) {
     const { requests } = useContext(RequestContext);
-
+    // const requestList = await prisma.request.findMany();
     const testRequest = {
         filename: "test1",
         type: "3DP",
@@ -38,6 +38,17 @@ export default function MachineList({ index }: MachineListProps) {
                         return null;
                     }
                 })} */}
+                {/* {
+                    requestList.map((request)=>(
+                        <RequestCardForMachine information={{
+                            filename:request.filename,
+                            type:request.type,
+                            comment:"temp",//request.comment,
+                            status:request.status
+                        }}></RequestCardForMachine>
+                        )
+                    )
+                } */}
             </div>
         </div>
         </>

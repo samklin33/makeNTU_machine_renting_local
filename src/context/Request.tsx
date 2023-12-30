@@ -28,7 +28,7 @@ export const RequestContext = createContext<RequestContext>({
 type Props = {
     children: React.ReactNode;
 }
-export const RequestProvider = ({ children }: Props) => {
+export const  RequestProvider = async ({ children }: Props) => {
     const [requests, setRequests] = useState<Request[]>([]);
     
     useEffect(() => {

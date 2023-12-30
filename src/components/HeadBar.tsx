@@ -3,11 +3,38 @@ import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { AccountContext } from "@/context/Account";
 
-
+import useRequest from "@/hooks/useRequest";
 export default function HeadBar() {
     const router = useRouter();
     const { user } = useContext(AccountContext);
+    const { postRequest } = useRequest();
+    const group = 1;
+    const type = "3dp";
+    const number = 1;
+    const filename = "lol";
+    const comment = "hi"
+    const status = "hi"
+    const testApi = async () =>{
+        try{
+            await postRequest(
+                {
+                    group,
+                    type,
+                    number,
+                    filename,
+                    comment,
+                    status,
+                }
+            )
+            console.log("seccessful test")
+        }
+        
+        catch (e){
+            console.error(e);
+            alert("Error testing");
+        }
 
+    }
     return (
         <>
         <div className="h-16 m-2 flex items-center justify-center cursor-pointer" onClick={()=>router.push("/")}>
@@ -27,6 +54,7 @@ export default function HeadBar() {
                     className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => router.push("/")}
                 >登出</button>}
+                <button onClick={()=>{testApi()}} className="hover:bg-orange-500">test</button>
             </div>
         </div>
         </>
