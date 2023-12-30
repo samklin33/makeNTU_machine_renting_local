@@ -17,7 +17,6 @@ export async function POST(req: NextRequest, ) {
                 status:"pending",
             }
         });
-        // console.log(user);
         return NextResponse.json({ status: 200 });
     } catch (error) {
         console.log("error: ", error);

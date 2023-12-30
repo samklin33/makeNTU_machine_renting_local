@@ -2,7 +2,7 @@ import { AccountRequest } from "@/context/Account";
 
 export const signInApi = async ({account, password}: AccountRequest) => {
     // add login logic here
-    const response = await fetch('api/users', {
+    const response = await fetch('/api/users', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

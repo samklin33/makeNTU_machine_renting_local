@@ -64,7 +64,7 @@ export default function reserve() {
     }
 
     return (
-        <div className="m-2 p-3 text-lg flex flex-col items-center justify-center justify-between border-2 border-black">
+        <div className="m-2 p-3 text-lg flex flex-col items-center justify-between border-2 border-black">
             <div className="m-3 mb-0.5 w-2/6 flex items-center gap-2 border-2 border-black">
                 <p className="font-bold w-1/4 text-right">隊伍編號：</p>
                 <InputArea

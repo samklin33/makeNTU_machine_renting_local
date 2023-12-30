@@ -1,13 +1,34 @@
 'use client'
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { RequestContext } from "@/context/Request";
 import { AccountContext } from "@/context/Account";
 import RequestCard from "./RequestCard";
 
 export default function QueueList() {
-    const { requests } = useContext(RequestContext);
+    const { requests, setRequests } = useContext(RequestContext);
     const { user } = useContext(AccountContext);
+
+    // useEffect(() => {
+    //     const fetchRequests = async () => {
+    //         const token = localStorage.getItem("token");
+    //         const response = await fetch(`api/reserve`, {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         const data = await response.json();
+    //         console.log(data);
+    //         if (!response.ok) {
+    //             console.log(response);
+    //         }
+    //         setRequests(data);
+    //     };
+    //     fetchRequests();
+    // }, []);
     
+    // const requestList = await prisma.request.findMany();
     const testRequest = {
         group: "team1",
         filename: "test1",
@@ -49,6 +70,17 @@ export default function QueueList() {
                         )}
                     return null;
                 })} */}
+                {/* {
+                    requestList.map((request)=>(
+                        <RequestCard information={{
+                            group:String(request.group),
+                            filename:request.filename,
+                            type:request.type,
+                            status:request.status
+                        }}></RequestCard>
+                        )
+                    )
+                } */}
             </div>
         </div>
         </>
