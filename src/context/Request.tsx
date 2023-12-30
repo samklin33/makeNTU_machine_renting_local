@@ -1,5 +1,6 @@
 'use client'
 import { createContext, useState } from "react";
+import prisma from "../../prisma/client";
 // import { Account } from "@/context/Account";
 
 export type Request = {
@@ -28,9 +29,10 @@ export const RequestContext = createContext<RequestContext>({
 type Props = {
     children: React.ReactNode;
 }
-export const RequestProvider = ({ children }: Props) => {
+export const  RequestProvider = async ({ children }: Props) => {
     const [requests, setRequests] = useState<Request[]>([]);
-
+    const requestList = await prisma.request.findMany();
+    //setRequests(requestList);
     return (
         <RequestContext.Provider value={{ requests, setRequests }}>
             {children}

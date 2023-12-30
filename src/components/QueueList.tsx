@@ -3,11 +3,12 @@ import React, { useContext } from "react";
 import { RequestContext } from "@/context/Request";
 import { AccountContext } from "@/context/Account";
 import RequestCard from "./RequestCard";
-
-export default function QueueList() {
+import prisma from "../../prisma/client";
+export default async function QueueList() {
     const { requests } = useContext(RequestContext);
     const { user } = useContext(AccountContext);
     
+    // const requestList = await prisma.request.findMany();
     const testRequest = {
         group: "team1",
         filename: "test1",
@@ -49,6 +50,17 @@ export default function QueueList() {
                         )}
                     return null;
                 })} */}
+                {/* {
+                    requestList.map((request)=>(
+                        <RequestCard information={{
+                            group:String(request.group),
+                            filename:request.filename,
+                            type:request.type,
+                            status:request.status
+                        }}></RequestCard>
+                        )
+                    )
+                } */}
             </div>
         </div>
         </>
