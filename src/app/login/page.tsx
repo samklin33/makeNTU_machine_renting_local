@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import InputArea from "@/components/ui/InputArea";
@@ -16,20 +16,26 @@ export default function Login() {
     const [permission, setPermission] = useState("");
     const [isSignUp, setIsSignUp] = useState(false);
 
+    useEffect(() => {
+        console.log("useEffect: ", username, password, permission)
+        if (permission !== "") {
+            direct();
+        }
+    }, [permission])
+
     const handleRegister = async () => {
         if (!checkInput()) {
             return;
         }
         console.log(username, password, permission);
-            try {
-                const registerData = await SignUpApi({ username, password, permission }, {});
-                localStorage.setItem("jwt-token: ", registerData.token);
-            } catch(error) {
-                alert("發生錯誤");
-                console.log(error);
-                return;
-            }
-        direct();
+        try {
+            const registerData = await SignUpApi({ username, password, permission }, {});
+            localStorage.setItem("jwt-token: ", registerData.token);
+        } catch(error) {
+            alert("發生錯誤");
+            console.log(error);
+            return;
+        }
     }
 
     const handleLogin = async () => {

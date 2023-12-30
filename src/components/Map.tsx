@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import map_path from "public/ntumap.jpg";
+import map_path from "@/../public/contestMap.png";
 
 export default function Map() {
     return (
